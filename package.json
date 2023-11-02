@@ -1,0 +1,21 @@
+{
+  "name": "ootr-route-training",
+  "version": "1.0.0",
+  "description": "Run ZOoTR seeds in \"tabletop\" formatto quickly train routing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaell22/ootr-route-training.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaell22/ootr-route-training/issues"
+  },
+  "homepage": "https://github.com/rafaell22/ootr-route-training#readme"
+}
