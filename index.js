@@ -4,6 +4,15 @@ import DirectedGraph from './build/classes/DirectedGraph.js';
 
 (async () => {
     try {
+        const fullDependencyGraph = new DirectedGraph();
+        const root = await readFile('./src/index.html', 'utf-8');
+        const viewDependencies = root.match(/<v-\S*/g).map(view => view.replace('<',''));
+        
+        // search for views used in index.html
+        //   if not found: error
+        //   if found, load view files.
+        
+
         const viewFolders = await readdir('./src/views');
         console.log(viewFolders); 
 
@@ -15,7 +24,6 @@ import DirectedGraph from './build/classes/DirectedGraph.js';
         }
 
         const components = {};
-        const componentDependencyGraph = new DirectedGraph();
         const componentFolders = await readdir('./src/components');
         for(const folder of componentFolders) {
             console.log(`Reading files from folder ${folder}`);
@@ -39,6 +47,7 @@ import DirectedGraph from './build/classes/DirectedGraph.js';
                 componentDependencyGraph.addEdge(folder, componentName);
             }
         }
+        console.log(componentDependencyGraph.adjacencyList)
 
         console.log(componentDependencyGraph.printGraph());
 
@@ -46,6 +55,9 @@ import DirectedGraph from './build/classes/DirectedGraph.js';
             console.log('Ca\'t build the application because there are cyclic dependencies!');
             return;
         }
+
+        const componentsOrder = componentDependencyGraph.topologicalSort();
+        console.log('componentsOrder: ', componentsOrder);
     } catch(errorBuildingApplication) {
         console.log('error?')
         console.error(errorBuildingApplication);
