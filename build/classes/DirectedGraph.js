@@ -22,6 +22,10 @@ export default class DirectedGraph {
         }
     }
 
+    has(vertex) {
+        return (this.adjacencyList[vertex] ? true : false);
+    }
+
     #isCyclicUtil(vertex, visited, recStack) {
         if(recStack[vertex]) {
             return true;
