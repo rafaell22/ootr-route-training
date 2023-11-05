@@ -22,6 +22,10 @@ export default class DirectedGraph {
         }
     }
 
+    getVertex(vertex) {
+        return this.adjacencyList[vertex];
+    }
+
     has(vertex) {
         return (this.adjacencyList[vertex] ? true : false);
     }

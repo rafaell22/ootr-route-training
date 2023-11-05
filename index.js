@@ -42,18 +42,6 @@ import Stack from './build/classes/Stack.js';
                 js: js,
                 css: css,
             };
-            fullDependencyGraph.addVertex(component);
-            const dependencies = html.match(/c-\S*/);
-            if(!dependencies) {
-                continue;
-            }
-            for(const componentName of dependencies) {
-                fullDependencyGraph.addEdge(component, componentName);
-            }
-        }
-        if(fullDependencyGraph.isCyclic()) {
-            console.log('Ca\'t build the application because there are cyclic components dependencies!');
-            return;
         }
 
         const views = {};
@@ -92,34 +80,31 @@ import Stack from './build/classes/Stack.js';
                 js: js,
                 css: css,
             };
-
-            fullDependencyGraph.addVertex(view);
-            const viewComponents = html.match(/c-\S*/);
-            if(!viewComponents) {
-                continue;
-            }
-                
-            for(const component of viewComponents) {
-                if(!fullDependencyGraph.has(component)) {
-                    console.error(`Missing dependency for component ${component} in view ${view}`);
-                    return;
-                }
-                fullDependencyGraph.addEdge(view, component);
-            }
         }
-        fullDependencyGraph.printGraph();
-        const dependenciesOrder = fullDependencyGraph.topologicalSort();
-        console.log('componentsOrder: ', dependenciesOrder);
 
-        const dependencyStack = new Stack();
         const root = await readFile('./src/index.html', 'utf-8');
         const viewDependencies = root.match(/<v-\S*/g).map(view => view.replace('<',''));
+        let html = '';
         for(const view of viewDependencies) {
-            dependencyStack.push(view);
+            const viewIndex = root.indexOf(view);
+            console.log('viewIndex: ', viewIndex)
+            console.log('view: ', view)
+            console.log('view regexp: ', new RegExp(`<${view} />`))
+            console.log(root.indexOf(new RegExp(`<${view} />`)))
+            root.replace(new RegExp(`<${view} />`), views[view].html);
+
+            console.log('root: ', root);
+            let component = views[view].html.match(/c-\S*/);
+            console.log('component: ', component[0]);
+            
+            if(!components[component]) {
+                console.error(`Missing dependency for component ${component} in view ${view}`);
+                return;
+            }
         }
 
     } catch(errorBuildingApplication) {
-        console.log('error?')
+        console.log('ERROR!')
         console.error(errorBuildingApplication);
     }
 })()
