@@ -85,23 +85,26 @@ import Stack from './build/classes/Stack.js';
         const root = await readFile('./src/index.html', 'utf-8');
         const viewDependencies = root.match(/<v-\S*/g).map(view => view.replace('<',''));
         let html = '';
+        let viewHtml = '';
+        let componentHtml = '';
         for(const view of viewDependencies) {
-            const viewIndex = root.indexOf(view);
-            console.log('viewIndex: ', viewIndex)
-            console.log('view: ', view)
-            console.log('view regexp: ', new RegExp(`<${view} />`))
-            console.log(root.indexOf(new RegExp(`<${view} />`)))
-            root.replace(new RegExp(`<${view} />`), views[view].html);
-
-            console.log('root: ', root);
-            let component = views[view].html.match(/c-\S*/);
-            console.log('component: ', component[0]);
-            
-            if(!components[component]) {
-                console.error(`Missing dependency for component ${component} in view ${view}`);
-                return;
+            viewHtml = views[view].html;
+            let component = viewHtml.match(/c-\S*/);
+            while(component) {
+                componentHtml = components[component].html;
+                let subComponent = componentHtml.match(/c-\S*/);
+                while(subComponent) {
+                    componentHtml = componentHtml.replace(`<${subComponent} />`, components[subComponent].html);
+                    subComponent = componentHtml.match(/c-\S*/);
+                }
+                viewHtml = viewHtml.replace(new RegExp(`<${component} />`), componentHtml);
+                component = viewHtml.match(/c-\S*/);
             }
+
+            html = root.replace(new RegExp(`<${view} />`), viewHtml);
         }
+
+        console.log('html: ', html);
 
     } catch(errorBuildingApplication) {
         console.log('ERROR!')
