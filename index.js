@@ -1,7 +1,4 @@
-import { readdir, readFile } from 'node:fs/promises';
-
-import DirectedGraph from './build/classes/DirectedGraph.js';
-import Stack from './build/classes/Stack.js';
+import { readdir, readFile, rm, mkdir, writeFile } from 'node:fs/promises';
 
 (async () => {
     try {
@@ -94,6 +91,13 @@ import Stack from './build/classes/Stack.js';
 
         console.log('html: ', html);
 
+        try {
+            await mkdir('./dist');
+        } catch(errorCreatingDirectory) {
+            await rm('./dist', { recursive: true });
+            await mkdir('./dist');
+        }
+        await writeFile('./dist/index.html', html, { flag: 'w+' });
     } catch(errorBuildingApplication) {
         console.log('ERROR!')
         console.error(errorBuildingApplication);
@@ -109,12 +113,14 @@ function getComponentsContent(components, parentComponent) {
     }
 
     return `
-        <style>
+        ${parentComponent.css ? '<style>' : ''}
             ${parentComponent.css}
-        </style>
+        ${parentComponent.css ? '</style>' : ''}
         ${parentComponentHtml}
-        <script>
-            ${parentComponent.js}
-        </script>
+        ${parentComponent.css ? '<script>' : ''}
+            {
+                ${parentComponent.js}
+            }
+        ${parentComponent.css ? '</script>' : ''}
     `;
 }
