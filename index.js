@@ -5,7 +5,7 @@ import Stack from './build/classes/Stack.js';
 
 (async () => {
     try {
-        const fullDependencyGraph = new DirectedGraph();
+        //const componentsDependencyGraph = new DirectedGraph();
         const components = {};
         const componentFolders = await readdir('./src/components');
         for(const component of componentFolders) {
@@ -86,20 +86,8 @@ import Stack from './build/classes/Stack.js';
         const viewDependencies = root.match(/<v-\S*/g).map(view => view.replace('<',''));
         let html = '';
         let viewHtml = '';
-        let componentHtml = '';
         for(const view of viewDependencies) {
-            viewHtml = views[view].html;
-            let component = viewHtml.match(/c-\S*/);
-            while(component) {
-                componentHtml = components[component].html;
-                let subComponent = componentHtml.match(/c-\S*/);
-                while(subComponent) {
-                    componentHtml = componentHtml.replace(`<${subComponent} />`, components[subComponent].html);
-                    subComponent = componentHtml.match(/c-\S*/);
-                }
-                viewHtml = viewHtml.replace(new RegExp(`<${component} />`), componentHtml);
-                component = viewHtml.match(/c-\S*/);
-            }
+            viewHtml = getComponentsContent(components, views[view]);
 
             html = root.replace(new RegExp(`<${view} />`), viewHtml);
         }
@@ -111,3 +99,22 @@ import Stack from './build/classes/Stack.js';
         console.error(errorBuildingApplication);
     }
 })()
+
+function getComponentsContent(components, parentComponent) {
+    let parentComponentHtml = parentComponent.html;
+    let component = parentComponentHtml.match(/c-\S*/);
+    while(component) {
+        parentComponentHtml = parentComponentHtml.replace(`<${component} />`, getComponentsContent(components, components[component]));
+        component = parentComponentHtml.match(/c-\S*/);
+    }
+
+    return `
+        <style>
+            ${parentComponent.css}
+        </style>
+        ${parentComponentHtml}
+        <script>
+            ${parentComponent.js}
+        </script>
+    `;
+}
