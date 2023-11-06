@@ -113,14 +113,12 @@ function getComponentsContent(components, parentComponent) {
     }
 
     return `
-        ${parentComponent.css ? '<style>' : ''}
-            ${parentComponent.css}
-        ${parentComponent.css ? '</style>' : ''}
-        ${parentComponentHtml}
-        ${parentComponent.css ? '<script>' : ''}
-            {
-                ${parentComponent.js}
-            }
-        ${parentComponent.css ? '</script>' : ''}
+${parentComponent.css ? '<style>' : ''}
+${parentComponent.css}
+${parentComponent.css ? '</style>' : ''}
+${parentComponentHtml}
+${parentComponent.js ? '<script>{' : ''}
+${parentComponent.js}
+${parentComponent.js ? '}</script>' : ''}
     `;
 }
