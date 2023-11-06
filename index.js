@@ -122,3 +122,11 @@ ${parentComponent.js}
 ${parentComponent.js ? '}</script>' : ''}
     `;
 }
+
+async function getMainJsDependencies() {
+    const mainJs = await readFile('./src/scripts/main.js');
+    console.log('mainjs: ', mainJs);
+
+    let dependency = mainJs.match('import .*?$');
+    console.log()
+}
