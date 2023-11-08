@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Timer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+         </style>
+        <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rafaell22/Console@1.2.0/console.css">-->
+        <link rel="icon" href="./assets/clock.png">
+        <link rel="stylesheet" href="./styles/main.css">
+    </head>
+    <body>
+        <!--this library helps to debug when developping using a mobile device-->
+      <!--<script src="https://cdn.jsdelivr.net/gh/rafaell22/Console@1.2.0/console.js"></script>-->
+      <!--<div id="dialog-overlay" class="overlay hidden layer-overlay"></div>-->
+      <!--
+         -<div id="loader" class="overlay hidden layer-loader">
+         -  <span class="loader"></span>
+         -</div>
+         -->
+
+      <!--
+         -<div id="settings-dialog" class="hidden above-overlay-1">
+         -</div>
+         -->
+
+      
+
+
+
+
+<style>
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background-color: var(--primary-color);
+  padding: 5px;
+}
+
+#footer>div {
+  float: right;
+  margin-right: 10px;
+}
+
+</style>
+<div id="footer">
+  
+
+
+
+<div id="settings">
+  <img src="./assets/gear.png" />
+</div>
+
+<script type="module">
+import Enum from './scripts/Enum.js';
+
+const settingsButton = document.getElementById('settings');
+
+settingsButton.addEventListener('click', () => {
+  $eventBus.publish('open-settings');
+});
+
+</script>
+    
+</div>
+
+
+
+
+    
+
+
+
+
+    
+
+      <script type="module" src="./scripts/main.js"></script>
+    </body>
+</html>
