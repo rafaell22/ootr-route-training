@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/rafaell22/ootr-route-training/issues"
   },
-  "homepage": "https://github.com/rafaell22/ootr-route-training#readme"
+  "homepage": "https://github.com/rafaell22/ootr-route-training#readme",
+  "dependencies": {
+    "@types/node": "^20.9.0"
+  }
 }
