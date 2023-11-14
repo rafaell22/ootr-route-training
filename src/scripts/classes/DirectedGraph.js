@@ -1,35 +1,66 @@
+// @ts-check
+'use strict'
+
+import Edge from "./Edge.js";
+
 export default class DirectedGraph {
+    /**
+     * @type {string[]|null}
+     */
     #topologicalSorted = null;
     constructor() {
         this.adjacencyList = {};
     }
 
+    /**
+     * @param {string} vertex - id or unique name for the vertex
+     */
     addVertex(vertex) {
-        console.log('Adding vertex ', vertex)
         this.adjacencyList[vertex] = [];
         this.#topologicalSorted = null;
     }
 
-    addEdge(vertex1, vertex2) {
-        console.log('Adding edge : ', vertex1, vertex2)
-        this.adjacencyList[vertex1].push(vertex2);
+    /**
+     * @param {string} vertex1
+     * @param {string} vertex2
+     * @param {object} [condition]
+     * @param {string[]} [condition.is]
+     * @param {string[]} [condition.has]
+     * @param {string[]} [condition.at]
+     */
+    addEdge(vertex1, vertex2, condition) {
+        this.adjacencyList[vertex1].push(new Edge(vertex1, vertex2, condition));
         this.#topologicalSorted = null;
     }
 
     printGraph() {
         for(const vertex in this.adjacencyList) {
-            console.log(`${vertex} -> ${this.adjacencyList[vertex].join(' ')}`);
+            console.log(`${vertex} -> ${this.adjacencyList[vertex].map(
+                /** @param {Edge} edge */
+                edge => edge.to
+            ).join(' ')}`);
         }
     }
 
+    /**
+     * @param {string} vertex
+     */
     getVertex(vertex) {
         return this.adjacencyList[vertex];
     }
 
+    /**
+     * @param {string} vertex
+     */
     has(vertex) {
         return (this.adjacencyList[vertex] ? true : false);
     }
 
+    /**
+     * @param {string} vertex
+     * @param {object} visited - array of visited vertexes
+     * @param {object} recStack - stack of vertexesbeing visited
+     */
     #isCyclicUtil(vertex, visited, recStack) {
         if(recStack[vertex]) {
             return true;
@@ -42,10 +73,10 @@ export default class DirectedGraph {
         visited[vertex] = true;
 
         recStack[vertex] = true;
-        let children = this.adjacencyList[vertex];
 
+        const children = this.adjacencyList[vertex];
         for(const child of children) {
-            if(this.#isCyclicUtil(child, visited, recStack)) {
+            if(this.#isCyclicUtil(child.to, visited, recStack)) {
                 return true;
             }
         }
@@ -72,13 +103,18 @@ export default class DirectedGraph {
         return false;
     }
 
+    /**
+     * @param {string} vertex
+     * @param {object} visited
+     * @param {string[]} stack
+     */
     #topologicalSortUtil(vertex, visited, stack) {
         // Mark the current node as visited.
         visited[vertex] = true;
 
         for(const edge of this.adjacencyList[vertex]) {
-            if(!visited[edge]){
-                this.#topologicalSortUtil(edge, visited, stack)
+            if(!visited[edge.to]){
+                this.#topologicalSortUtil(edge.to, visited, stack)
             }
         }
 

@@ -1,3 +1,13 @@
-import Enum from '../scripts/classes/Enum.js';
+// @ts-check
+'use strict'
 
-export default new Enum('adult', 'child');
+import Enum from '../classes/Enum.js';
+
+/**
+ * @name ages
+ * @property {string} ADULT
+ * @property {string} CHILD
+ */
+const ages = new Enum('adult', 'child');
+
+export default ages;

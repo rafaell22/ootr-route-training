@@ -40,7 +40,7 @@ import { readdir, readFile, rm, mkdir, writeFile } from 'node:fs/promises';
 /**
  * Reads components in src/components and return their html/js/css
  * @param {string} folder
- * @returns {Promise<Object.<string, ComponentContent>>}
+ * @returns {Promise<Object.<string, ComponentContent>|undefined>}
  */
 async function getContent(folder) {
     /** @type {Object.<string, ComponentContent>} */
