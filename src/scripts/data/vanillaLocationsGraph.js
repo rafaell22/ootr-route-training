@@ -1,5 +1,9 @@
-import DirectedGraph from "../classes/DirectedGraph.js";
-import LOCATIONS from "./locations.js";
+import DirectedGraph from '../classes/DirectedGraph.js';
+import LOCATIONS from './locations.js';
+import AGES from './ages.js';
+import TIME_OF_DAY from './timeOfDay.js';
+import DUNGEON_REWARDS from './dungeonRewards.js';
+import ITEMS from './items.js';
 
 const locationsGraph = new DirectedGraph();
 for(const location in LOCATIONS) {
@@ -7,40 +11,88 @@ for(const location in LOCATIONS) {
 }
 
 // HF connections
-locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.LON_LON_RANCH);
-locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.MARKET);
-locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.KAKARIKO_VILLAGE);
-locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.ZORA_RIVER);
-locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.KOKIRI_FOREST);
-locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.LAKE_HYLIA);
-locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.GERUDO_VALLEY);
+locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.LON_LON_RANCH, {});
+locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.MARKET, {});
+locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.KAKARIKO_VILLAGE, {});
+locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.ZORA_RIVER, {});
+locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.KOKIRI_FOREST, {});
+locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.LAKE_HYLIA, {});
+locationsGraph.addEdge(LOCATIONS.HYRULE_FIELD, LOCATIONS.GERUDO_VALLEY, {});
 
 // LLR
-locationsGraph.addEdge(LOCATIONS.LON_LON_RANCH, LOCATIONS.HYRULE_FIELD);
+locationsGraph.addEdge(LOCATIONS.LON_LON_RANCH, LOCATIONS.HYRULE_FIELD, {});
 
 // MKT
-locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.HYRULE_FIELD);
-locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.HYRULE_CASTLE);
-locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.TEMPLE_OF_TIME);
-locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.OUTSIDE_GANON_CASTLE);
+locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.HYRULE_FIELD, { 
+    or: {
+        and: {
+            is: AGES.CHILD,
+            on: TIME.DAY,
+        },
+        is: AGES.ADULT
+    }
+});
+locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.HYRULE_CASTLE, {
+    is: AGES.CHILD,
+});
+locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.TEMPLE_OF_TIME, {});
+locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.OUTSIDE_GANON_CASTLE, {
+    is: AGES.ADULT,
+});
 
 // HC
-locationsGraph.addEdge(LOCATIONS.HYRULE_CASTLE, LOCATIONS.MARKET);
+locationsGraph.addEdge(LOCATIONS.HYRULE_CASTLE, LOCATIONS.MARKET, {
+    is: AGES.CHILD,
+});
 
 // TOT
-locationsGraph.addEdge(LOCATIONS.TEMPLE_OF_TIME, LOCATIONS.MARKET);
+locationsGraph.addEdge(LOCATIONS.TEMPLE_OF_TIME, LOCATIONS.MARKET, {});
+locationsGraph.addEdge(LOCATIONS.TEMPLE_OF_TIME, LOCATIONS.MASTER_SWORD_PEDESTAL, {
+    or: {
+        and: {
+            is: AGES.CHILD,
+            has: [
+                DUNGEON_REWARDS.KOKIRI_EMERALD,
+                DUNGEON_REWARDS.GORON_RUBY,
+                DUNGEON_REWARDS.ZORA_SAPPHIRE,
+            ]
+        },
+        is: AGES.ADULT,
+    }
+});
+
+locationsGraph.addEdge(LOCATIONS.MASTER_SWORD_PEDESTAL, LOCATIONS.TEMPLE_OF_TIME, {});
 
 // OGC
-locationsGraph.addEdge(LOCATIONS.OUTSIDE_GANON_CASTLE, LOCATIONS.MARKET);
-locationsGraph.addEdge(LOCATIONS.OUTSIDE_GANON_CASTLE, LOCATIONS.INSIDE_GANON_CASTLE);
+locationsGraph.addEdge(LOCATIONS.OUTSIDE_GANON_CASTLE, LOCATIONS.MARKET, {
+    is: AGES.ADULT,
+});
+locationsGraph.addEdge(LOCATIONS.OUTSIDE_GANON_CASTLE, LOCATIONS.INSIDE_GANON_CASTLE, {
+    and: {
+        is: AGES.ADULT,
+        has: [
+            DUNGEON_REWARDS.LIGHT_MEDALION,
+            DUNGEON_REWARDS.FOREST_MEDALION,
+            DUNGEON_REWARDS.FIRE_MEDALION,
+            DUNGEON_REWARDS.WATER_MEDALION,
+            DUNGEON_REWARDS.SHADOW_MEDALION,
+            DUNGEON_REWARDS.SPIRIT_MEDALION,
+        ],
+    }
+});
 
 // IGC
-locationsGraph.addEdge(LOCATIONS.INSIDE_GANON_CASTLE, LOCATIONS.OUTSIDE_GANON_CASTLE);
+locationsGraph.addEdge(LOCATIONS.INSIDE_GANON_CASTLE, LOCATIONS.OUTSIDE_GANON_CASTLE, {});
 
 // KAK
-locationsGraph.addEdge(LOCATIONS.KAKARIKO_VILLAGE, LOCATIONS.HYRULE_FIELD);
-locationsGraph.addEdge(LOCATIONS.KAKARIKO_VILLAGE, LOCATIONS.GRAVEYARD);
-locationsGraph.addEdge(LOCATIONS.KAKARIKO_VILLAGE, LOCATIONS.DEATH_MOUNTAIN_TRAIL);
+locationsGraph.addEdge(LOCATIONS.KAKARIKO_VILLAGE, LOCATIONS.HYRULE_FIELD, {});
+locationsGraph.addEdge(LOCATIONS.KAKARIKO_VILLAGE, LOCATIONS.GRAVEYARD, {});
+locationsGraph.addEdge(LOCATIONS.KAKARIKO_VILLAGE, LOCATIONS.DEATH_MOUNTAIN_TRAIL, {
+    and: {
+        is: AGES.CHILD,
+        has: ITEMS.ZELDA_LETTER,
+    }
+});
 locationsGraph.addEdge(LOCATIONS.KAKARIKO_VILLAGE, LOCATIONS.BOTTOM_OF_THE_WELL);
 
 // GRY

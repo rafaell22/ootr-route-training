@@ -6,6 +6,7 @@ const locations = new Enum(
     'market',
     'hyrule castle',
     'temple of time',
+    'master sword pedestal',
     'outside ganon castle',
     'inside ganon castle',
     'kakariko village',
