@@ -4,7 +4,7 @@
   "description": "Run ZOoTR seeds in \"tabletop\" formatto quickly train routing",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "type": "module",
   "repository": {
@@ -20,5 +20,9 @@
   "homepage": "https://github.com/rafaell22/ootr-route-training#readme",
   "dependencies": {
     "@types/node": "^20.9.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.8",
+    "jest": "^29.7.0"
   }
 }
