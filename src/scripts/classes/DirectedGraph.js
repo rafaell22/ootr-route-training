@@ -23,13 +23,10 @@ export default class DirectedGraph {
     /**
      * @param {string} vertex1
      * @param {string} vertex2
-     * @param {object} [condition]
-     * @param {string[]} [condition.is]
-     * @param {string[]} [condition.has]
-     * @param {string[]} [condition.at]
+     * @param {object} [edgeAttributes]
      */
-    addEdge(vertex1, vertex2, condition) {
-        this.adjacencyList[vertex1].push(new Edge(vertex1, vertex2, condition));
+    addEdge(vertex1, vertex2, edgeAttributes) {
+        this.adjacencyList[vertex1].push(new Edge(vertex1, vertex2, edgeAttributes));
         this.#topologicalSorted = null;
     }
 
