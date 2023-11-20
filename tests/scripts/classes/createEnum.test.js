@@ -13,5 +13,15 @@ describe('Test EnumFactory', () => {
   });
 
   test('Try to edit an enum value', () => {
-  })
+    const enumInstance = createEnum('value 1', 'value 2', 'value3');
+    expect(() => enumInstance.VALUE_1 = 'NEW_VALUE').toThrow();
+  });
+
+  test('Try to create a new enum without passing any value', () => {
+    expect(() => createEnum()).toThrow();
+  });
+
+  test('Try to create a new enum and passing a value that is not a string', () => {
+    expect(() => createEnum({}, 'value 1')).toThrow();
+  });
 });

@@ -2,13 +2,21 @@
 'use strict'
 
 /**
- * @param {any} values[]
+ * @param {string[]} values[]
  * @returns {object}
  */
 export default function createEnum(...values) {
+  if(values.length === 0) {
+    throw new Error('Cannot create empty enum');
+  }
+
   const enumInstance = {};
   const enumValues = [];
   for(const value of values) {
+    if(typeof value !== 'string') {
+      throw new Error(`Invalid value in enum: ${value}`);
+    }
+
     const snakeCaseValue = value
       // replace spaces ( ) with underscores (_)
       .replace(/ /g, '_')
@@ -22,9 +30,10 @@ export default function createEnum(...values) {
       .replace(/^_/, '');
 
     enumValues.push(snakeCaseValue);
+    const enumUuidValue = crypto.randomUUID();
     Object.defineProperty(enumInstance, snakeCaseValue, {
       enumerable: true,
-      get: (function(/** @type {string} */enumValue) { return enumValue }).bind(enumInstance, snakeCaseValue),
+      get: (function(/** @type {string} */enumValue) { return enumValue }).bind(enumInstance, enumUuidValue),
       set() { throw new Error('Can\'t set property of Enum') },
     });
   }

@@ -8,7 +8,7 @@ import Item from './Item.js';
 export default class Consumable extends Item {
     /**
      * @param {string} name
-     * @param {ages} age
+     * @param {ages} [age]
      */
     constructor(name, age) {
         super(name, itemTypes.CONSUMABLE, age);
@@ -31,5 +31,12 @@ export default class Consumable extends Item {
      */
     use(quantity) {
         this._quantity -= quantity;
+    }
+
+    /**
+     * @param {ages} age
+     */
+    canUse(age) {
+        return this.age && this.age === age;
     }
 }
