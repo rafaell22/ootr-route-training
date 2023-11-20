@@ -1,13 +1,13 @@
 // @ts-check
 'use strict'
 
-import Enum from '../classes/Enum.js';
+import createEnum from '../classes/createEnum.js';
 
 /**
  * @name ages
  * @property {string} ADULT
  * @property {string} CHILD
  */
-const ages = new Enum('adult', 'child');
+const ages = createEnum('adult', 'child');
 
 export default ages;

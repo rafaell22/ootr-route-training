@@ -1,16 +1,17 @@
 // @ts-check
 'use script'
 
-import Enum from "../classes/Enum.js";
+import createEnum from "../classes/createEnum.js";
 
-const itemTypes = new Enum(
+const itemTypes = createEnum(
     'consumable',
     'not consumable',
 );
 
 /**
  * @name itemTypes
- * @type {object & Enum}
+ * @type {object}
  * @property {string} CONSUMABLE
+ * @property {string} NOT_CONSUMABLE
  */
 export default itemTypes;
