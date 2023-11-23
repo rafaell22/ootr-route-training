@@ -1,6 +1,21 @@
-import Enum from "../classes/Enum.js";
+// @ts-check
+'use strict'
 
-export default new Enum(
+import createEnum from "../classes/createEnum.js";
+
+/**
+ * @name dungeonRewards
+ * @property {string} KOKIRI_EMERALD
+ * @property {string} GORON_RUBY
+ * @property {string} ZORA_SAPPHIRE
+ * @property {string} FOREST_MEDALION
+ * @property {string} FIRE_MEDALION
+ * @property {string} WATER_MEDALION
+ * @property {string} SHADOW_MEDALION
+ * @property {string} SPIRIT_MEDALION
+ * @property {string} LIGHT_MEDALION
+ */
+const dungeonRewards = createEnum(
     'kokiri emerald',
     'goron ruby',
     'zora sapphire',
@@ -10,4 +25,6 @@ export default new Enum(
     'shadow medalion',
     'spirit medalion',
     'light medalion',
-)
+);
+
+export default dungeonRewards;

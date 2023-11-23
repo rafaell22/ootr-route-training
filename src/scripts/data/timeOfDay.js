@@ -1,13 +1,13 @@
 // @ts-check
 'use strict'
 
-import Enum from '../classes/Enum.js';
+import createEnum from '../classes/createEnum.js';
 
 /**
  * @name ages
  * @property {string} DAY
  * @property {string} NIGHT
  */
-const timeOfDay = new Enum('day', 'night');
+const timeOfDay = createEnum('day', 'night');
 
 export default timeOfDay;

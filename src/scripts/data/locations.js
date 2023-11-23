@@ -1,42 +1,7 @@
-import Enum from '../classes/Enum.js';
+// @ts-check
+'use strict'
 
-const locations = new Enum(
-    'hyrule field',
-    'lon lon ranch',
-    'market',
-    'hyrule castle',
-    'temple of time',
-    'master sword pedestal',
-    'outside ganon castle',
-    'inside ganon castle',
-    'kakariko village',
-    'graveyard',
-    'death mountain trail',
-    'death mountain crater',
-    'goron city',
-    'zora river',
-    'zora domain',
-    'zora fountain',
-    'lost woods',
-    'sacred forest meadow',
-    'kokiri forest',
-    'lake hylia',
-    'gerudo valley',
-    'gerudo fortress',
-    'haunted wasteland',
-    'desert colossus',
-    'deku tree',
-    'dodongo cavern',
-    'jabu jabu',
-    'forest temple',
-    'fire temple',
-    'water temple',
-    'shadow temple',
-    'spirit temple',
-    'gerudo training grounds',
-    'bottom of the well',
-    'ice cavern',
-);
+import createEnum from '../classes/createEnum.js';
 
 /**
  * @name locations
@@ -75,4 +40,42 @@ const locations = new Enum(
  * @property {string} BOTTOM_OF_THE_WELL
  * @property {string} ICE_CAVERN
  */
+const locations = createEnum(
+    'hyrule field',
+    'lon lon ranch',
+    'market',
+    'hyrule castle',
+    'temple of time',
+    'master sword pedestal',
+    'outside ganon castle',
+    'inside ganon castle',
+    'kakariko village',
+    'graveyard',
+    'death mountain trail',
+    'death mountain crater',
+    'goron city',
+    'zora river',
+    'zora domain',
+    'zora fountain',
+    'lost woods',
+    'sacred forest meadow',
+    'kokiri forest',
+    'lake hylia',
+    'gerudo valley',
+    'gerudo fortress',
+    'haunted wasteland',
+    'desert colossus',
+    'deku tree',
+    'dodongo cavern',
+    'jabu jabu',
+    'forest temple',
+    'fire temple',
+    'water temple',
+    'shadow temple',
+    'spirit temple',
+    'gerudo training grounds',
+    'bottom of the well',
+    'ice cavern',
+);
+
 export default locations;

@@ -1,5 +1,5 @@
 // @ts-check
-'use script'
+'use strict'
 
 import createEnum from "../classes/createEnum.js";
 

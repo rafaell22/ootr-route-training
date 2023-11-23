@@ -1,6 +1,9 @@
-import Enum from '../classes/Enum.js';
+// @ts-check
+'use strict'
 
-export default new Enum(
+import createEnum from '../classes/createEnum.js';
+
+const dungeons = createEnum(
     'deku tree',
     'dodongo cavern',
     'jabu jabu',
@@ -10,3 +13,5 @@ export default new Enum(
     'shadow temple',
     'spirit temple',
 );
+
+export default dungeons;

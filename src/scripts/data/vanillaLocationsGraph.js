@@ -27,7 +27,7 @@ locationsGraph.addEdge(LOCATIONS.MARKET, LOCATIONS.HYRULE_FIELD, {
     or: {
         and: {
             is: AGES.CHILD,
-            on: TIME.DAY,
+            on: TIME_OF_DAY.DAY,
         },
         is: AGES.ADULT
     }
