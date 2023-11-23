@@ -32,11 +32,4 @@ export default class Consumable extends Item {
     use(quantity) {
         this._quantity -= quantity;
     }
-
-    /**
-     * @param {ages} age
-     */
-    canUse(age) {
-        return this.age && this.age === age;
-    }
 }

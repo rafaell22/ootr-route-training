@@ -1,15 +1,22 @@
 {
+  "include": ["src/**/*.js", "tests/**/*.js"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": ".",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "target": "ES2020",
     "lib": ["ES2020", "dom"],
     "allowJs": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
-  },
-  "include": ["./src/**/*.js"],
-  "exclude": ["dist", "node_modules"]
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "paths": {
+      "#/*": [ "./src/*" ],
+      "#classes/*": ["./src/scripts/classes/*"],
+      "#data/*": ["./src/scripts/data/*"]
+    }
+  }
 }

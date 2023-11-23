@@ -1,6 +1,0 @@
-{
-    "transform": {},
-    "setupFiles": [
-        "./tests/jestSetupCrypto.js"
-    ]
-}

@@ -15,4 +15,11 @@ export default class Item {
         this.type = type;
         this.age = age;
     }
+
+    /**
+     * @param {ages} age
+     */
+    canUse(age) {
+        return this.age ? this.age === age : true;
+    }
 }

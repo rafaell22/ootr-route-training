@@ -18,6 +18,21 @@
     "url": "https://github.com/rafaell22/ootr-route-training/issues"
   },
   "homepage": "https://github.com/rafaell22/ootr-route-training#readme",
+  "imports": {
+    "#/*": "./src/scripts/*",
+    "#classes/*": "./src/scripts/classes/*",
+    "#data/*": "./src/scripts/data/*"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.classes/(.*)$": "<rootDir>/src/scripts/classes/$1",
+      "^.data/(.*)$": "<rootDir>/src/scripts/data/$1"
+    },
+    "transform": {},
+    "setupFiles": [
+        "./tests/jestSetupCrypto.js"
+    ]
+  },
   "dependencies": {
     "@types/node": "^20.9.0"
   },

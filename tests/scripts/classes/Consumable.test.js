@@ -1,41 +1,10 @@
 // @ts-check
 'use strict'
 
-import { jest } from '@jest/globals';
-
-import Consumable from '../../../src/scripts/classes/Consumable.js';
-
-import createEnum from '../../../src/scripts/classes/createEnum.js';
-jest.mock('../../../src/scripts/classes/createEnum.js', () => {});
+import Consumable from '#classes/Consumable.js';
 
 import itemTypes from '../../../src/scripts/data/itemTypes.js';
-jest.mock('../../../src/scripts/data/itemTypes', () => { 
-  return {
-    CONSUMABLE: 0,
-    NOT_CONSUMABLE: 1,
-  }
-});
-
 import ages from '../../../src/scripts/data/ages.js';
-jest.mock('../../../src/scripts/data/ages.js', () => {
-  return {
-    CHILD: 0,
-    ADULT: 1,
-  };
-});
-
-import Item from '../../../src/scripts/classes/Item.js';
-jest.mock('../../../src/scripts/classes/Item.js', () => {
-  return jest.fn().mockImplementation(
-    function(name, type, age) {
-      this.name = name;
-      this.type = type;
-      this.age = age;
-
-      return this;
-    }
-  );
-});
 
 describe('Test class Consumable', () => {
   describe('Test class instantiation', () => {
@@ -61,7 +30,7 @@ describe('Test class Consumable', () => {
       expect(consumableItemChild.type).toBe(itemTypes.CONSUMABLE);
 
       expect(consumableItemChild.canUse(ages.CHILD)).toBe(true);
-      expect(consumableItemChild.canUse(ages.ADULT)).toBe(true);
+      expect(consumableItemChild.canUse(ages.ADULT)).toBe(false);
 
       expect(consumableItemChild.quantity).toBe(0);
       consumableItemChild.add(1);
