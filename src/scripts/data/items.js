@@ -26,9 +26,7 @@ import createEnum from "../classes/createEnum.js";
  * @property {string} ICE_ARROWS
  * @property {string} FARORES_WIND
  * @property {string} BOTTLE
- * @property {string} STRENGTH_1
- * @property {string} STRENGTH_2
- * @property {string} STRENGTH_3
+ * @property {string} STRENGTH
  * @property {string} GORON_TUNIC
  * @property {string} ZORA_TUNIC
  * @property {string} BOOMERANG
@@ -37,8 +35,7 @@ import createEnum from "../classes/createEnum.js";
  * @property {string} MEGATTON_HAMMER
  * @property {string} LIGHT_ARROWS
  * @property {string} NAYRUS_LOVE
- * @property {string} BIG_WALLET
- * @property {string} GIANT_WALLET
+ * @property {string} WALLET
  * @property {string} MAGIC
  * @property {string} IRON_BOOTS
  * @property {string} HOVER_BOOTS
@@ -73,9 +70,7 @@ const items = createEnum(
     'ice arrows',
     'farores wind',
     'bottle',
-    'strength 1',
-    'strength 2',
-    'strength 3',
+    'strength',
     'goron tunic',
     'zora tunic',
     'boomerang',
@@ -84,8 +79,7 @@ const items = createEnum(
     'megatton hammer',
     'light arrows',
     'nayrus love',
-    'big wallet',
-    'giant wallet',
+    'wallet',
     'magic',
     'iron boots',
     'hover boots',

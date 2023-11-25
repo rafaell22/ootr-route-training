@@ -2,24 +2,16 @@
 'use script'
 
 import itemTypes from "../data/itemTypes.js";
-import ages from "../data/ages.js";
 
 export default class Item {
     /**
      * @param {string} name
      * @param {itemTypes} type
-     * @param {ages} [age]
+     * @param {object} [conditions]
      */
-    constructor(name, type, age) {
+    constructor(name, type, conditions) {
         this.name = name;
         this.type = type;
-        this.age = age;
-    }
-
-    /**
-     * @param {ages} age
-     */
-    canUse(age) {
-        return this.age ? this.age === age : true;
+        this.conditions = conditions;
     }
 }

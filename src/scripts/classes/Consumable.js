@@ -2,17 +2,17 @@
 'use strict'
 
 import itemTypes from '../data/itemTypes.js';
-import ages from '../data/ages.js';
 import Item from './Item.js';
 
 export default class Consumable extends Item {
     /**
      * @param {string} name
-     * @param {ages} [age]
+     * @param {object} [conditions]
+     * @param {number} [quantity]
      */
-    constructor(name, age) {
-        super(name, itemTypes.CONSUMABLE, age);
-        this._quantity = 0;
+    constructor(name, conditions, quantity) {
+        super(name, itemTypes.CONSUMABLE, conditions);
+        this._quantity = quantity ?? 0;
     }
 
     get quantity() {
