@@ -15,6 +15,9 @@ export default class Consumable extends Item {
         this._quantity = quantity ?? 0;
     }
 
+    /**
+     * @returns {number}
+     */
     get quantity() {
         return this._quantity;
     }

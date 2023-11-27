@@ -4,6 +4,7 @@
 /**
  * @param {string[]} values[]
  * @returns {object}
+ * @throws
  */
 export default function createEnum(...values) {
   if(values.length === 0) {
@@ -42,6 +43,12 @@ export default function createEnum(...values) {
     enumerable: false,
     get: (function(/** @type {string[]} */ values){ return values }).bind(enumInstance, enumValues),
     set() { throw new Error('Can\'t set property of Enum') },
+  })
+
+  Object.defineProperty(enumInstance, 'length', {
+    enumerable: false,
+    get: (function( /** @type {number} */ length) { return length }).bind(enumInstance, enumValues.length),
+    set() { throw new Error('Can\'t set Enum\'s length') },
   })
 
 

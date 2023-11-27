@@ -1,15 +1,24 @@
 // @ts-check
 'use strict'
 
+import items from '#data/items.js';
+
 export default class Inventory {
-    constructor() {
+    /**
+     * @param {items[]} [initialItems]
+     */
+    constructor(initialItems = []) {
         this.items = new Map();
+        for(const item of initialItems) {
+            this.add(item);
+        }
     }
 
     /**
      * @param {string} item
      * @param {string} [pocket]
      * @returns {boolean}
+     * @throws
      */
     has(item, pocket) {
         if(!item) {

@@ -10,17 +10,21 @@ import items from '#data/items.js';
 describe('Test class Consumable', () => {
   describe('Test class instantiation', () => {
     test('Successfully create Consumable instance passing only name and no conditions', () => {
-      const consumableItemBothAges = new Consumable(items.DEKU_NUTS);
+      const itemName = items.DEKU_NUTS;
+      const consumableItemBothAges = new Consumable(itemName);
       expect(consumableItemBothAges).toEqual(expect.objectContaining({
-        name: items.DEKU_NUTS,
+        name: itemName,
         type: itemTypes.CONSUMABLE,
       }));
     });
 
     test('Successfully create Consumable instance passing name and conditions', () => {
-      const consumableItemChild = new Consumable(items.DEKU_STICK, ages.CHILD);
+      const itemName = items.DEKU_NUTS;
+      const consumableItemChild = new Consumable(itemName, {
+        is: ages.CHILD
+      });
       expect(consumableItemChild).toEqual(expect.objectContaining({
-        name: items.DEKU_NUTS,
+        name: itemName,
         type: itemTypes.CONSUMABLE,
         conditions: expect.objectContaining({
           is: ages.CHILD,

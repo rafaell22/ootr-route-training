@@ -6,6 +6,8 @@ export default class Check {
      * @param {string} name
      * @param {object} reward
      * @param {object} [conditions]
+     *
+     * @throws
      */
     constructor(name, reward, conditions) {
         if(!name) {
@@ -26,8 +28,12 @@ export default class Check {
         this.done = false;
     }
 
+    /**
+     * @returns {object}
+     */
     do() {
         this.done = true;
+        return this.reward;
     }
 
     undo() {
