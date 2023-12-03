@@ -36,12 +36,13 @@ describe('Test class Inventory', () => {
       expect(inventory.has(item)).toBe(true);
     });
 
-    test('Successfully try to add existing item to inventory', () => {
+    test('Successfully add multiple instances of same item to inventory', () => {
       const inventory = new Inventory();
       const item = items.KOKIRI_SWORD;
       inventory.add(item);
       inventory.add(item);
-      expect(inventory.has(item)).toBe(true);
+      console.log('inventory/items: ', inventory.items)
+      expect(inventory.has(item, 2)).toBe(true);
     });
 
     test('Successfully add new item to pocket in inventory', () => {
@@ -54,9 +55,9 @@ describe('Test class Inventory', () => {
     test('Successfully try to add existing item to pocket in inventory', () => {
       const inventory = new Inventory();
       const item = items.KOKIRI_SWORD;
-      inventory.add(item, 'equipment');
-      inventory.add(item, 'equipment');
-      expect(inventory.has(item, 'equipment')).toBe(true);
+      inventory.add(item, 1, 'equipment');
+      inventory.add(item, 1, 'equipment');
+      expect(inventory.has(item, 2, 'equipment')).toBe(true);
     });
 
     test('Succesfully remove item from inventory', () => {
@@ -72,7 +73,7 @@ describe('Test class Inventory', () => {
       const item = items.KOKIRI_SWORD;
       inventory.add(item, 'equipment');
       inventory.remove(item, 'equipment');
-      expect(inventory.has(item, 'equipment')).toBe(false);
+      expect(inventory.has(item, 1, 'equipment')).toBe(false);
     });
 
     test('Succesfully try to remove inexistent item from inventory', () => {

@@ -10,24 +10,31 @@ import Inventory from './Inventory.js';
 export default class Player {
     /**
      * @param {object} options
-     * @param {locations} options.at
-     * @param {ages} options.is
-     * @param {items[]} [options.has]
+     * @param {locations} options.isAt
+     * @param {ages} options.isAge
+     * @param {object[]} [options.hasItem]
+     * @param {items} [options.hasItem[].name]
+     * @param {number} [options.hasItem[].quantity]
      *
      * @throws
      */
     constructor(options) {
-        if(!options.at) {
+        if(!options.isAt) {
             throw new Error('Missing player\'s location!');
         }
 
-        if(!options.is) {
+        if(!options.isAge) {
             throw new Error('Missing player\'s age!');
         }
 
-        this.location = options.at;
-        this.age = options.is;
-        this.inventory = new Inventory(options.has ?? []);
+        this.location = options.isAt;
+        this.age = options.isAge;
+        this.inventory = new Inventory();
+        if(options.hasItem) {
+            for(const item of options.hasItem) {
+                this.inventory.add(item.name, item.quantity, 'items');
+            }
+        }
     }
 
     /**
@@ -35,7 +42,7 @@ export default class Player {
      *
      * @throws
      */
-    at(location) {
+    isAt(location) {
         if(!location) {
             throw new Error('Missing location to compare!');
         }
@@ -48,7 +55,7 @@ export default class Player {
      *
      * @throws
      */
-    is(age) {
+    isAge(age) {
         if(!age) {
             throw new Error('Missing age to compare!');
         }
@@ -58,8 +65,9 @@ export default class Player {
 
     /**
      * @param {items|dungeonRewards} item
+     * @param {number} [quantity]
      */
-    has(item) {
-        return this.inventory.has(item);
+    hasItem(item, quantity) {
+        return this.inventory.has(item, quantity ?? 1, 'items');
     }
 };
