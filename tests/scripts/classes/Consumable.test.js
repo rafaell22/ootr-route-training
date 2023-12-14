@@ -21,13 +21,13 @@ describe('Test class Consumable', () => {
     test('Successfully create Consumable instance passing name and conditions', () => {
       const itemName = items.DEKU_NUTS;
       const consumableItemChild = new Consumable(itemName, {
-        is: ages.CHILD
+        isAge: ages.CHILD
       });
       expect(consumableItemChild).toEqual(expect.objectContaining({
         name: itemName,
         type: itemTypes.CONSUMABLE,
         conditions: expect.objectContaining({
-          is: ages.CHILD,
+          isAge: ages.CHILD,
         }),
       }));
     });
