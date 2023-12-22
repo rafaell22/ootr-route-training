@@ -6,6 +6,7 @@ import ages from '#data/ages.js';
 import items from '#data/items.js';
 import dungeonRewards from '#data/dungeonRewards.js';
 import Inventory from './Inventory.js';
+import Check from './Check.js';
 
 export default class Player {
     /**
@@ -69,5 +70,11 @@ export default class Player {
      */
     hasItem(item, quantity) {
         return this.inventory.has(item, quantity ?? 1, 'items');
+    }
+
+    /**
+     * @param {Check} check
+     */
+    canCheck(check) {
     }
 };

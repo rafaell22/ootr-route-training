@@ -30,11 +30,12 @@
     },
     "transform": {},
     "setupFiles": [
-        "./tests/jestSetupCrypto.js"
+      "./tests/jestSetupCrypto.js"
     ]
   },
   "dependencies": {
-    "@types/node": "^20.9.0"
+    "@types/node": "^20.9.0",
+    "readline-promise": "^1.0.5"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
