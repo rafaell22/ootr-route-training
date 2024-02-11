@@ -26,6 +26,14 @@ export default class DirectedGraph {
      * @param {object} [edgeAttributes]
      */
     addEdge(vertex1, vertex2, edgeAttributes) {
+        if(!this.adjacencyList[vertex1]) {
+            throw new Error(`Origin ${vertex1} is undefined! Can't create an edge to ${vertex2} there!`);
+        }
+
+        if(!this.adjacencyList[vertex2]) {
+            throw new Error(`Destination ${vertex2} is undefined! Can't create an edge from ${vertex1}!`);
+        }
+
         this.adjacencyList[vertex1].push(new Edge(vertex1, vertex2, edgeAttributes));
         this.#topologicalSorted = null;
     }

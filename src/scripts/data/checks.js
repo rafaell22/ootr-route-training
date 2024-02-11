@@ -272,6 +272,7 @@ import createEnum from '../classes/createEnum.js';
  * @property {string} GANONS_TOWER_BOSS_KEY_CHEST
  */
 const checks = createEnum(
+    { useStrValues: true },
     'Links Pocket',
     'Queen Gohma',
     'King Dodongo',

@@ -28,6 +28,15 @@ describe('Test EnumFactory', () => {
   });
 
   test('Throw error when trying to create a new enum with a value that is not a string', () => {
-    expect(() => createEnum({}, 'value 1')).toThrow();
+    expect(() => createEnum(1, 'value 1')).toThrow();
+  });
+
+  test('Successfully create enums with the original strings as the values (but not the keys)', () => {
+    const enumInstance = createEnum({ useStrValues: true }, 'value 1', 'value 2', 'value3');
+    expect(enumInstance).toEqual(expect.objectContaining({
+      VALUE_1: 'value 1',
+      VALUE_2: 'value 2',
+      VALUE3: 'value3',
+    }))
   });
 });
